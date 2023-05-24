@@ -3,8 +3,6 @@
 
 ### Concepts
 
-*For this project, we expect you to look at this concept:*
-
 -   [User management](https://alx-intranet.hbtn.io/concepts/558)
 
 
