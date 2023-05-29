@@ -7,6 +7,7 @@ Background Context
 In this project, We learnt what the authentication process means and implement a **Basic Authentication** on a simple API.
 
 In the industry, you should **not** implement your own Basic authentication system and use a module or framework that doing it for you (like in Python-Flask: [Flask-HTTPAuth](https://alx-intranet.hbtn.io/rltoken/rpsPy0M3_FJuCLGNPUbmvg "Flask-HTTPAuth")). Here, for the learning purpose, we will walk through each step of this mechanism to understand it by doing.
+![6ccb363443a8f301bc2bc38d7a08e9650117de7c](https://github.com/Amili-usain/alx-backend-user-data/assets/107358517/732a3a63-0d2f-414a-8d45-2dab56f7ac9b)
 
 Resources
 ---------
