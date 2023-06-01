@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
-"""
-Module for UserSession class
+"""User session module.
 """
 from models.base import Base
 
 
 class UserSession(Base):
-    """ UserSession class represents a user session.
+    """User session class.
     """
+
     def __init__(self, *args: list, **kwargs: dict):
-        """
-        Initializes a new UserSession object.
-        Args:
-            *args (list): Positional arguments.
-            **kwargs (dict): Keyword arguments.
+        """Initializes a User session instance.
         """
         super().__init__(*args, **kwargs)
         self.user_id = kwargs.get('user_id')

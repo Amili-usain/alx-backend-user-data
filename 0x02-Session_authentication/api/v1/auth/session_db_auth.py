@@ -1,33 +1,34 @@
 #!/usr/bin/env python3
-""" Module for SessionDBAuth class
+"""Session authentication with expiration
+and storage support module for the API.
 """
 from flask import request
 from datetime import datetime, timedelta
-from .session_exp_auth import SessionExpAuth
+
 from models.user_session import UserSession
+from .session_exp_auth import SessionExpAuth
 
 
 class SessionDBAuth(SessionExpAuth):
-    """ SessionDBAuth class persists session data in a database.
-    It extends the SessionExpAuth class.
+    """Session authentication class with expiration and storage support.
     """
 
-    def create_session(self, user_id=None):
-        """  Creates a session ID for a user.
+    def create_session(self, user_id=None) -> str:
+        """Creates and stores a session id for the user.
         """
         session_id = super().create_session(user_id)
-        if not session_id:
-            return None
-        kw = {
-            "user_id": user_id,
-            "session_id": session_id
-        }
-        user = UserSession(**kw)
-        user.save()
-        return session_id
+        if type(session_id) == str:
+            kwargs = {
+                'user_id': user_id,
+                'session_id': session_id,
+            }
+            user_session = UserSession(**kwargs)
+            user_session.save()
+            return session_id
 
     def user_id_for_session_id(self, session_id=None):
-        """ Returns a user ID based on a session ID.
+        """Retrieves the user id of the user associated with
+        a given session id.
         """
         try:
             sessions = UserSession.search({'session_id': session_id})
@@ -42,14 +43,8 @@ class SessionDBAuth(SessionExpAuth):
             return None
         return sessions[0].user_id
 
-    def destroy_session(self, request=None):
-        """
-        Destroys a UserSession instance based on a session ID from a request cookie.
-        Args:
-            request (object): The request object.
-        Returns:
-            bool: True if the UserSession instance was successfully removed,
-            False otherwise.
+    def destroy_session(self, request=None) -> bool:
+        """Destroys an authenticated session.
         """
         session_id = self.session_cookie(request)
         try:

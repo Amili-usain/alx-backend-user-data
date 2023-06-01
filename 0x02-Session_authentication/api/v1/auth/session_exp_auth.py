@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" SessionExpAuth module
+"""Session authentication with expiration module for the API.
 """
 import os
 from flask import request
@@ -9,12 +9,11 @@ from .session_auth import SessionAuth
 
 
 class SessionExpAuth(SessionAuth):
-    """ Implements Session Authorization protocol with session expiration.
-    Inherits from SessionAuth.
+    """Session authentication class with expiration.
     """
 
     def __init__(self) -> None:
-        """ Initializes SessionExpAuth instance.
+        """Initializes a new SessionExpAuth instance.
         """
         super().__init__()
         try:
@@ -23,8 +22,7 @@ class SessionExpAuth(SessionAuth):
             self.session_duration = 0
 
     def create_session(self, user_id=None):
-        """ Creates a Session ID for a user with id user_id.
-        Overrides the create_session method in SessionAuth.
+        """Creates a session id for the user.
         """
         session_id = super().create_session(user_id)
         if type(session_id) != str:
@@ -36,8 +34,8 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None) -> str:
-        """ Returns a user ID based on a session ID.
-        Overrides the user_id_for_session_id method in SessionAuth.
+        """Retrieves the user id of the user associated with
+        a given session id.
         """
         if session_id in self.user_id_by_session_id:
             session_dict = self.user_id_by_session_id[session_id]
